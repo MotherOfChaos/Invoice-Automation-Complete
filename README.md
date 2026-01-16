@@ -394,3 +394,55 @@ const CONFIG = {
 
 **Last Updated:** January 16, 2026  
 **Repository:** Private (shareable with collaborators)
+
+---
+
+## 🆕 LATEST UPDATES (January 16, 2026)
+
+### Emergency Fix Tools Added:
+
+**RE_EXTRACT_DATA_SCRIPT.gs** (`/phase1-automation/`)
+- Fixes invoices processed WITHOUT Vision API extraction
+- Re-extracts Amount, Invoice#, IBAN from existing files
+- One-time use to fix deployment issues
+- Run time: 5-10 minutes for ~150 invoices
+
+**CLIENT_DEPLOYMENT_CHECKLIST.md** (`/documentation/`)
+- Complete 16-step deployment checklist
+- Prevents common issues (wrong account, API propagation, extraction failures)
+- Success criteria verification
+- Post-deployment validation
+- Emergency fixes included
+- **Use this for EVERY client deployment!**
+
+### Why These Were Added:
+
+Teatro deployment revealed extraction data was missing from 147 invoices because:
+1. Vision API was enabled BUT
+2. Invoices processed before APIs fully propagated
+3. System marked them "done" without extraction data
+
+**Prevention:** Follow CLIENT_DEPLOYMENT_CHECKLIST.md  
+**Fix:** Run RE_EXTRACT_DATA_SCRIPT.gs (one-time)
+
+---
+
+**Updated Repository Structure:**
+
+```
+Invoice-Automation-Complete/
+│
+├── phase1-automation/
+│   ├── INVOICE_AUTOMATION_SYSTEM.gs    # Main automation code
+│   ├── DEPLOYMENT_GUIDE.md             # Setup instructions
+│   └── RE_EXTRACT_DATA_SCRIPT.gs       # 🆕 Emergency extraction fix
+│
+├── documentation/
+│   ├── SYSTEM_SPECIFICATIONS.md        # Complete specs
+│   ├── TROUBLESHOOTING.md              # User troubleshooting
+│   └── CLIENT_DEPLOYMENT_CHECKLIST.md  # 🆕 Prevent deployment issues
+│
+└── ... (other folders)
+```
+
+---
