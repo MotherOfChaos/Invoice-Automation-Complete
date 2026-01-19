@@ -1,16 +1,26 @@
-# 🎉 DELIVERY SUMMARY - v1.0 COMPLETE
+# 🎉 DELIVERY SUMMARY - v1.1 COMPLETE
 
 **Invoice Automation System for Teatro Metamorfosis**
 **Delivered:** 2025-01-19
-**Status:** ✅ Production Ready
+**Status:** ✅ Production Ready (v1.1 - CRITICAL BUG FIXED!)
+
+---
+
+## 🐛 CRITICAL BUG FIX (v1.1)
+
+**Problem Found:** v1.0 was extracting ALL attachments from invoice emails (logos, icons, signatures)
+**Root Cause:** Missing filename-based filtering from original system
+**Fix Applied:** Now only extracts files with invoice-related filenames
+**Status:** ✅ FIXED in v1.1 - Ready to deploy!
 
 ---
 
 ## 📦 What's Been Delivered
 
 ### Core Automation Code
-✅ **v1.0_complete_automation.gs** - Complete system with all features
-✅ **INVOICE_AUTOMATION_FINAL.gs** - Production-ready copy
+✅ **v1.1_file_type_filtering_fix.gs** - RECOMMENDED VERSION (bug fixed!)
+✅ **v1.0_complete_automation.gs** - Original (has bug, use v1.1 instead)
+✅ **INVOICE_AUTOMATION_FINAL.gs** - Production-ready copy (v1.1)
 
 ### Documentation
 ✅ **VERSION_HISTORY.md** - Complete version tracking
@@ -356,5 +366,12 @@ All files are committed locally and ready to push:
 
 **Delivered by:** Cody (Claude Sonnet 4.5)
 **Date:** 2025-01-19
-**Version:** 1.0 (Production Ready)
+**Version:** 1.1 (Production Ready - Bug Fixed!)
 **Repository:** https://github.com/MotherOfChaos/Invoice-Automation-Complete
+
+---
+
+**v1.0 → v1.1 Change Log:**
+- ✅ FIXED: File type filtering - no more icons/logos extracted
+- ✅ Now only extracts invoice documents (PDF, DOC with invoice keywords in filename)
+- ✅ Backwards compatible - drop-in replacement for v1.0

@@ -1,4 +1,4 @@
-# 🚀 QUICK START CARD - Invoice Automation v1.0
+# 🚀 QUICK START CARD - Invoice Automation v1.1
 
 **For Teatro Metamorfosis - Sarah's Cheat Sheet**
 
@@ -6,9 +6,10 @@
 
 ## 📦 What You Have
 
-✅ **Complete automation system** ready to deploy
+✅ **Complete automation system** ready to deploy (v1.1 - FIXED FILE FILTERING!)
 ✅ **All code in:** `phase1-automation/INVOICE_AUTOMATION_FINAL.gs`
 ✅ **All documentation** in `documentation/` folder
+✅ **Bug fix:** Now ONLY extracts invoice documents (no more icons/logos!)
 
 ---
 
@@ -212,6 +213,14 @@ After deployment, verify:
 
 ---
 
-**Version:** 1.0
+**Version:** 1.1 (File Filtering Fix)
 **Date:** 2025-01-19
 **Next action:** Deploy to Apps Script! 🚀
+
+## 🆕 What Changed in v1.1?
+
+**BUG FIXED:** v1.0 was extracting ALL attachments (including company logos, icons, email signatures).
+
+**NOW FIXED:** v1.1 only extracts files with invoice-related names (factura, invoice, recibo, payment, etc.).
+
+**Result:** Clean folders with ONLY actual invoices - no more clutter! ✅

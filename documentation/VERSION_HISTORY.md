@@ -1,8 +1,70 @@
 # VERSION HISTORY
 
+## v1.1 - File Type Filtering Fix
+**Date:** 2025-01-19
+**Status:** ✅ Production Ready (RECOMMENDED)
+**File:** `phase1-automation/versions/v1.1_file_type_filtering_fix.gs`
+
+### 🐛 Critical Bug Fix
+
+**Problem:** v1.0 was extracting ALL attachments from invoice emails, including:
+- Company logos (JPG, PNG)
+- Email signature images
+- Icon files
+- Banner images
+
+This defeated the purpose of the automation by creating extra work instead of reducing it.
+
+**Root Cause:** Missing filename-based filtering logic from original system.
+
+**Solution:** Added file type filter that checks if attachment filename contains invoice keywords (factura, invoice, recibo, payment, etc.) before extracting. Now ONLY extracts actual invoice documents, not decorative images.
+
+### 🔧 Changes Made
+
+**Modified function:** `scanAndExtractEmails()` (lines 454-497)
+
+**Added logic:**
+```javascript
+const filename = attachment.getName().toLowerCase();
+
+// FILE TYPE FILTER: Only process attachments with invoice-related filenames
+const isInvoiceFile = CONFIG.invoiceKeywords.some(keyword =>
+  filename.includes(keyword.toLowerCase())
+);
+
+if (!isInvoiceFile) {
+  Logger.log(`  ⊘ Skipped non-invoice file: ${attachment.getName()}`);
+  return;
+}
+```
+
+**Comparison with old system:**
+- Old version (INVOICE_AUTOMATION_SYSTEM.gs): Had this filter ✅
+- v1.0: Missing this filter ❌ (BUG)
+- v1.1: Filter restored ✅ (FIXED)
+
+### 📊 Expected Behavior
+
+**Before (v1.0):**
+- Email with invoice PDF + company logo + signature image = extracts all 3 files
+- Result: Messy folders with lots of non-invoice files
+
+**After (v1.1):**
+- Same email = extracts only the invoice PDF
+- Result: Clean folders with only actual invoices
+
+### ✅ Backwards Compatible
+
+- All existing v1.0 functions work exactly the same
+- Configuration unchanged
+- Only difference: Smarter file filtering
+- Can be deployed immediately as drop-in replacement
+
+---
+
 ## v1.0 - Complete Automation System
 **Date:** 2025-01-19
-**Status:** ✅ Production Ready
+**Status:** ⚠️ Deprecated (use v1.1 instead)
 **File:** `phase1-automation/versions/v1.0_complete_automation.gs`
 
 ### 🎯 What's Included
