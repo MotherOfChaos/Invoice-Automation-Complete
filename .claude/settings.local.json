@@ -10,7 +10,10 @@
       "Bash(git push:*)",
       "Bash(git commit:*)",
       "Bash(pkill -f \"git push\")",
-      "Bash(git remote get-url:*)"
+      "Bash(git remote get-url:*)",
+      "Bash(while read file)",
+      "Bash(do basename \"$file\")",
+      "Bash(done)"
     ]
   }
 }

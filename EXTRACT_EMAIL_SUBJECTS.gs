@@ -1,0 +1,467 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * EMAIL SUBJECT EXTRACTOR FOR MISSING INVOICES
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ * PURPOSE: Find emails containing the 286 missing invoice files and extract subjects
+ *
+ * HOW TO USE:
+ * 1. Copy this script to Apps Script (new project or add to existing)
+ * 2. Run extractEmailSubjects()
+ * 3. Check execution logs for results
+ * 4. Results will be saved to a Google Doc for easy analysis
+ */
+
+function extractEmailSubjects() {
+  Logger.log('═'.repeat(80));
+  Logger.log('EXTRACTING EMAIL SUBJECTS FOR MISSING INVOICES');
+  Logger.log('═'.repeat(80));
+
+  // List of 286 missing filenames
+  const missingFiles = [
+    "030365BD-7C43-4EC8-A6F2-ACADE0C1A2A9.pdf",
+    "038 TEATRO METAMORFOSIS-1.pdf",
+    "0EB6BA2F-5B17-499D-A881-9E06B7B05650.pdf",
+    "10022519.pdf",
+    "100344-0179-entradium-hoja.pdf",
+    "101017-0180-entradium-hoja.pdf",
+    "101046-0181-entradium-hoja.pdf",
+    "101047-0182-entradium-hoja.pdf",
+    "102522-0183-entradium-hoja.pdf",
+    "102523-0184-entradium-hoja.pdf",
+    "102873-0185-entradium-hoja.pdf",
+    "103195-0186-entradium-hoja.pdf",
+    "103196-0187-entradium-hoja.pdf",
+    "103576-0188-entradium-hoja.pdf",
+    "103577-0189-entradium-hoja.pdf",
+    "103578-0190-entradium-hoja.pdf",
+    "103794-0191-entradium-hoja.pdf",
+    "103795-0192-entradium-hoja.pdf",
+    "104129-0193-entradium-hoja.pdf",
+    "104130-0194-entradium-hoja.pdf",
+    "104131-0195-entradium-hoja.pdf",
+    "104631-0196-entradium-hoja.pdf",
+    "104632-0197-entradium-hoja.pdf",
+    "104633-0198-entradium-hoja.pdf",
+    "104634-0199-entradium-hoja.pdf",
+    "105030-0200-entradium-hoja.pdf",
+    "105031-0201-entradium-hoja.pdf",
+    "105032-0202-entradium-hoja.pdf",
+    "105251-0203-entradium-hoja.pdf",
+    "105285-0204-entradium-hoja.pdf",
+    "105310-0205-entradium-hoja.pdf",
+    "105621-0206-entradium-hoja.pdf",
+    "105622-0207-entradium-hoja.pdf",
+    "105623-0208-entradium-hoja.pdf",
+    "105783-0209-entradium-hoja.pdf",
+    "105931-0210-entradium-hoja.pdf",
+    "105932-0211-entradium-hoja.pdf",
+    "106193-0212-entradium-hoja.pdf",
+    "106387-0213-entradium-hoja.pdf",
+    "107680-0214-entradium-hoja.pdf",
+    "107681-0215-entradium-hoja.pdf",
+    "107789-0216-entradium-hoja.pdf",
+    "108086-0217-entradium-hoja.pdf",
+    "108087-0218-entradium-hoja.pdf",
+    "108722-0219-entradium-hoja.pdf",
+    "108723-0220-entradium-hoja.pdf",
+    "108724-0221-entradium-hoja.pdf",
+    "108725-0223-entradium-hoja.pdf",
+    "108726-0224-entradium-hoja.pdf",
+    "109178-0225-entradium-hoja.pdf",
+    "109179-0226-entradium-hoja.pdf",
+    "109183-0227-entradium-hoja.pdf",
+    "109190-0228-entradium-hoja.pdf",
+    "109259-0229-entradium-hoja.pdf",
+    "109725-0230-entradium-hoja.pdf",
+    "109726-0231-entradium-hoja.pdf",
+    "109924-0232-entradium-hoja.pdf",
+    "110342-0233-entradium-hoja.pdf",
+    "110343-0234-entradium-hoja.pdf",
+    "110345-0235-entradium-hoja.pdf",
+    "110346-0236-entradium-hoja.pdf",
+    "110814-0237-entradium-hoja.pdf",
+    "110918-0238-entradium-hoja.pdf",
+    "111_1T_2025_LAS TIAS DEL SEC.pdf",
+    "111_4T_2024_LAS TIAS DEL SEC.pdf",
+    "111375-0239-entradium-hoja.pdf",
+    "111376-0240-entradium-hoja.pdf",
+    "111517-0241-entradium-hoja.pdf",
+    "111519-0242-entradium-hoja.pdf",
+    "111859-0243-entradium-hoja.pdf",
+    "111869-0244-entradium-hoja.pdf",
+    "111978-0245-entradium-hoja.pdf",
+    "112359-0246-entradium-hoja.pdf",
+    "112360-0247-entradium-hoja.pdf",
+    "112361-0248-entradium-hoja.pdf",
+    "112362-0249-entradium-hoja.pdf",
+    "112363-0250-entradium-hoja.pdf",
+    "112520-0251-entradium-hoja.pdf",
+    "112642-0252-entradium-hoja.pdf",
+    "113275-0253-entradium-hoja.pdf",
+    "113276-0254-entradium-hoja.pdf",
+    "113277-0255-entradium-hoja.pdf",
+    "113278-0256-entradium-hoja.pdf",
+    "113848-0257-entradium-hoja.pdf",
+    "113849-0258-entradium-hoja.pdf",
+    "113850-0259-entradium-hoja.pdf",
+    "113851-0260-entradium-hoja.pdf",
+    "113882-0261-entradium-hoja.pdf",
+    "114395-0262-entradium-hoja.pdf",
+    "114396-0263-entradium-hoja.pdf",
+    "114397-0264-entradium-hoja.pdf",
+    "114398-0265-entradium-hoja.pdf",
+    "114422-0266-entradium-hoja.pdf",
+    "114884-0267-entradium-hoja.pdf",
+    "114990-0268-entradium-hoja.pdf",
+    "114991-0269-entradium-hoja.pdf",
+    "115_2T_2025_LAS TIAS DEL SEC.PDF.pdf",
+    "20250127-P25CON003566143.pdf",
+    "2025-0149 Las tias del sec SL.pdf",
+    "20250226-P25CON009367815.pdf",
+    "20250326-P25CON014085628 (1).pdf",
+    "20250326-P25CON014085628.pdf",
+    "20250425-P25CON019480310.pdf",
+    "20250525-P25CON025125881.pdf",
+    "20250622-P25CON030193125.pdf",
+    "20250725-P25CON035103789 (2).pdf",
+    "20250828-P25CON040149260.pdf",
+    "20250924-P25CON044730533.pdf",
+    "20251025-P25CON049689250.pdf",
+    "20251125-P25CON054406556.pdf",
+    "2172251E-C98A-4544-938B-ED296A27C416.pdf",
+    "250429-Teatro-Metamorfosis (1)-1.pdf",
+    "251F0007276-00420F.PDF.pdf",
+    "251F0007433-00420F.PDF.pdf",
+    "251F0007560-00420F.PDF.pdf",
+    "38BE528A-B0BC-4171-8FB9-521CB4B8A1A6.pdf",
+    "44B5F61A-6544-4DE8-B5A3-DEDA3074AD11.pdf",
+    "5146046031.pdf",
+    "5167571140.pdf",
+    "5189399744.pdf",
+    "5216859512.pdf",
+    "5236203372.pdf",
+    "5263899422.pdf",
+    "5297246913.pdf",
+    "5317790882.pdf",
+    "5343069823.pdf",
+    "5368214356.pdf",
+    "5395494282.pdf",
+    "53E8AE12-3610-4A82-8183-481377561FA7.pdf",
+    "5420359574.pdf",
+    "5678C76B-7C5E-4967-B8CF-95BDCE507E03.pdf",
+    "60047-en.pdf",
+    "60054-en.pdf",
+    "60058-en.pdf",
+    "6CE4CBD6-419F-4F8D-A021-79F13E6A1D5E.pdf",
+    "70001.pdf",
+    "71583D64-1426-4274-88BE-6941E34F8D53.pdf",
+    "7D5DEC10-7D0B-4D97-A254-B2E3029A2FEC.pdf",
+    "7D880BFC-3BE3-423E-9363-818B382B66FC.pdf",
+    "8B6FA972-4E64-4D5E-9726-E86D57EBF45A.pdf",
+    "91894-0138-entradium-hoja (1).pdf",
+    "91CFB1B4-C2C0-40CB-8C4D-69F3E22C11DA.pdf",
+    "92000-0139-entradium-hoja (2).pdf",
+    "92143-0140-entradium-hoja (1).pdf",
+    "92144-0141-entradium-hoja (2).pdf",
+    "92145-0142-entradium-hoja (1).pdf",
+    "92747-0143-entradium-hoja.pdf",
+    "93142-0144-entradium-hoja.pdf",
+    "93290-0145-entradium-hoja.pdf",
+    "93742-0146-entradium-hoja (1).pdf",
+    "93743-0147-entradium-hoja (1).pdf",
+    "93746-0148-entradium-hoja (1).pdf",
+    "93747-0149-entradium-hoja.pdf",
+    "94255-0150-entradium-hoja.pdf",
+    "94256-0151-entradium-hoja.pdf",
+    "94257-0152-entradium-hoja.pdf",
+    "94258-0153-entradium-hoja.pdf",
+    "95272-0154-entradium-hoja (1).pdf",
+    "95273-155-entradium-hoja (1).pdf",
+    "95274-156-entradium-hoja (1).pdf",
+    "95275-157-entradium-hoja (1).pdf",
+    "95276-158-entradium-hoja (1).pdf",
+    "95277-159-entradium-hoja (1).pdf",
+    "95412-160-entradium-hoja (1).pdf",
+    "95813-161-entradium-hoja (1).pdf",
+    "95814-162-entradium-hoja (1).pdf",
+    "95838-163-entradium-hoja.pdf",
+    "95AF2B0D-D1CE-4174-8D8E-4A715FF312E0.pdf",
+    "95F39928-9B96-47CA-93F1-E8F6CCB51CCF.pdf",
+    "96331-164-entradium-hoja.pdf",
+    "96332-165-entradium-hoja.pdf",
+    "96808-166-entradium-hoja.pdf",
+    "97366-167-entradium-hoja.pdf",
+    "97367-168-entradium-hoja.pdf",
+    "97833-169-entradium-hoja.pdf",
+    "98047-170-entradium-hoja.pdf",
+    "98546-171-entradium-hoja.pdf",
+    "98547-172-entradium-hoja.pdf",
+    "98745-173-entradium-hoja.pdf",
+    "98913-174-entradium-hoja.pdf",
+    "98914-175-entradium-hoja.pdf",
+    "98ED70AC-DA5E-4908-AF56-0C10BF3D8EF1.pdf",
+    "99549-0176-entradium-hoja.pdf",
+    "99873-0177-entradium-hoja.pdf",
+    "99874-0178-entradium-hoja.pdf",
+    "A82CE87A-D968-4D13-8340-78F32E30DB25.pdf",
+    "abril2025.pdf",
+    "account-statement_2025-01-01_2025-03-20_en-gb_c0871d.pdf",
+    "agosto2025.pdf",
+    "B2E81CEC-DF46-43F0-8E47-4C0D809B2F1F.pdf",
+    "D33E0A78-3FF2-4486-BED2-B210B1076669.pdf",
+    "D78C8C16-F6BF-467D-8E01-01EC7FCDE2C3.pdf",
+    "DGFCJ2500026807.pdf",
+    "DGFCJ2500085982.pdf",
+    "DGFCJ2500147032.pdf",
+    "DGFCJ2500243968.pdf",
+    "DGFCJ2500265564.pdf",
+    "DGFCJ2500397360.pdf",
+    "DGFCJ2500467017.pdf",
+    "DGFCJ2500523311.pdf",
+    "DGFCJ2500621357.pdf",
+    "DGFCJ2500699409.pdf",
+    "DGFCJ2500760867.pdf",
+    "DGFCJ2500864081.pdf",
+    "diciembre2025.pdf",
+    "Doc. cl. 3758 Las Tias del Sec anual 2025.pdf",
+    "Dragatha Christie 8.11.25.pdf",
+    "E4121BE0-AE2F-4089-B068-E53DD696183E.pdf",
+    "enero2025.pdf",
+    "F4C76955-65D0-477B-9245-347F06060609.pdf",
+    "Fac 2547.pdf",
+    "FAC FEBRER-25.pdf",
+    "FAC GENER 25-26(1).pdf",
+    "FAC GENER 25-26.pdf",
+    "FAC JUL-30.pdf",
+    "FAC MAIG 25-31.pdf",
+    "FAC MARÇ-25.pdf",
+    "FAC2548 .pdf",
+    "FAC43.pdf",
+    "FAC44.pdf",
+    "FACT ABRIL-32.pdf",
+    "febrero2025(1).pdf",
+    "febrero2025.pdf",
+    "FRA.CHUCHES.pdf",
+    "FRA.FRINGE25.pdf",
+    "FRA.Losotros-Agosto25.pdf",
+    "FRA.Losotros-Julio25.xlsx.pdf",
+    "FRA.Losotros-Sept.25.xlsx - Hojas de cálculo de Google.pdf",
+    "FRA_LOCAL TAPIOLES_12_ABR_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_AGO_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_DIC_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_ENE_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_FEB_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_JUL_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_JUN_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_MAR_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_MAY_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_NOV_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_OCT_25.pdf",
+    "FRA_LOCAL TAPIOLES_12_SEPT_25.pdf",
+    "H.S._Mensual_Finiq_RUIVAL, MARIA LAURA_11-2025.pdf",
+    "julio2025.pdf",
+    "junio2025.pdf",
+    "Lady Red Velvet - Barcelona Fringe Teatro Mteamorfosis .pdf",
+    "LAS TIAS DEL SEC 14-11-2025.pdf",
+    "LAS TIAS DEL SEC 29-9-25.pdf",
+    "LAS TIAS DEL SEC 4-12-2025.pdf",
+    "Las tias del sec S.L. _19(1).pdf",
+    "Las tias del sec S.L. _19.pdf",
+    "Las tias del sec S.L. _20.pdf",
+    "Las tias del sec S.L. _21.pdf",
+    "Las tias del sec S.L. _24.pdf",
+    "marzo2025(1).pdf",
+    "marzo2025.pdf",
+    "mayo2025.pdf",
+    "MOD.111 3T25.pdf",
+    "MOD.115 3T25.pdf",
+    "MOD.303 3T25.pdf",
+    "NOM RUIVAL, MARIA LAURA(1).pdf",
+    "NOM RUIVAL, MARIA LAURA.pdf",
+    "Nömina 01_2025.pdf",
+    "Nómina 03_2025.pdf",
+    "Nómina 04_2025.pdf",
+    "Nómina 05_2025.pdf",
+    "Nömina 06_2025(1).pdf",
+    "Nömina 06_2025.pdf",
+    "Nömina 07_2025.pdf",
+    "Nömina 08_2025.pdf",
+    "Nömina 12_2024.pdf",
+    "noviembre2025.pdf",
+    "octubre2025.pdf",
+    "payout BCN 1.2025(1).pdf",
+    "payout BCN 1.2025.pdf",
+    "payout BCN 11.2025.pdf",
+    "payout BCN 3.2025.pdf",
+    "payout BCN 6.2025.pdf",
+    "payout BCN 9.2025.pdf",
+    "RE0008_Cisneros.docx.pdf",
+    "Santander Empresas oct.pdf",
+    "Santander Empresas.pdf",
+    "Santander_20mar202515028 - movimientos.pdf",
+    "septiembre2025.pdf",
+    "Web Page(1).pdf",
+    "Web Page(2).pdf",
+    "Web Page(3).pdf",
+    "Web Page.pdf"
+  ];
+
+  const results = {
+    totalSearched: missingFiles.length,
+    found: [],
+    notFound: [],
+    subjectKeywords: {}
+  };
+
+  Logger.log(`\nSearching for ${missingFiles.length} missing invoice files...`);
+  Logger.log('This may take 5-10 minutes...\n');
+
+  let processedCount = 0;
+
+  // Search for each file
+  missingFiles.forEach(filename => {
+    processedCount++;
+
+    if (processedCount % 20 === 0) {
+      Logger.log(`Progress: ${processedCount}/${missingFiles.length} files searched...`);
+    }
+
+    try {
+      // Clean filename for search (remove special characters that might interfere)
+      const searchFilename = filename.replace(/[()]/g, '');
+
+      // Search in both accounts
+      const query = `has:attachment filename:"${searchFilename}" in:anywhere after:2024/01/01`;
+      const threads = GmailApp.search(query, 0, 5);
+
+      if (threads.length > 0) {
+        // Found the file - get the first thread
+        const messages = threads[0].getMessages();
+
+        // Check all messages in thread for the attachment
+        for (let msg of messages) {
+          const attachments = msg.getAttachments();
+          const hasFile = attachments.some(att => {
+            const attName = att.getName();
+            return attName === filename || attName === searchFilename;
+          });
+
+          if (hasFile) {
+            const subject = msg.getSubject();
+            const from = msg.getFrom();
+            const date = msg.getDate();
+
+            results.found.push({
+              filename: filename,
+              subject: subject,
+              from: from,
+              date: date
+            });
+
+            // Extract keywords from subject
+            const words = subject.toLowerCase().split(/[\s,;:.\-_]+/).filter(w => w.length > 2);
+            words.forEach(word => {
+              if (!results.subjectKeywords[word]) {
+                results.subjectKeywords[word] = 0;
+              }
+              results.subjectKeywords[word]++;
+            });
+
+            break; // Found it, stop checking messages
+          }
+        }
+
+      } else {
+        results.notFound.push(filename);
+      }
+
+    } catch (error) {
+      Logger.log(`Error searching for ${filename}: ${error.message}`);
+      results.notFound.push(filename);
+    }
+  });
+
+  // Generate Report
+  Logger.log('\n' + '═'.repeat(80));
+  Logger.log('RESULTS SUMMARY');
+  Logger.log('═'.repeat(80));
+
+  Logger.log(`\nTotal files searched: ${results.totalSearched}`);
+  Logger.log(`Files found in email: ${results.found.length}`);
+  Logger.log(`Files NOT found: ${results.notFound.length}`);
+
+  // Log detailed results
+  Logger.log('\n' + '─'.repeat(80));
+  Logger.log('FOUND FILES WITH SUBJECTS (First 50):');
+  Logger.log('─'.repeat(80));
+
+  results.found.slice(0, 50).forEach(item => {
+    Logger.log(`\n${item.filename}`);
+    Logger.log(`  Subject: ${item.subject}`);
+    Logger.log(`  From: ${item.from}`);
+    Logger.log(`  Date: ${item.date}`);
+  });
+
+  // Keyword analysis
+  Logger.log('\n' + '─'.repeat(80));
+  Logger.log('TOP 50 SUBJECT KEYWORDS:');
+  Logger.log('─'.repeat(80));
+
+  const sortedKeywords = Object.entries(results.subjectKeywords)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 50);
+
+  sortedKeywords.forEach(([word, count]) => {
+    Logger.log(`${word.padEnd(30)} → ${count} times`);
+  });
+
+  // Create Google Doc with full results
+  const doc = DocumentApp.create('Missing Invoices - Email Subjects Analysis');
+  const body = doc.getBody();
+
+  body.appendParagraph('MISSING INVOICES - EMAIL SUBJECTS ANALYSIS')
+    .setHeading(DocumentApp.ParagraphHeading.HEADING1);
+
+  body.appendParagraph(`Generated: ${new Date()}`);
+  body.appendParagraph(`Total files: ${results.totalSearched}`);
+  body.appendParagraph(`Found: ${results.found.length}`);
+  body.appendParagraph(`Not found: ${results.notFound.length}`);
+
+  body.appendParagraph('\nFOUND FILES WITH SUBJECTS:')
+    .setHeading(DocumentApp.ParagraphHeading.HEADING2);
+
+  results.found.forEach(item => {
+    body.appendParagraph(`\nFilename: ${item.filename}`).setBold(true);
+    body.appendParagraph(`Subject: ${item.subject}`);
+    body.appendParagraph(`From: ${item.from}`);
+    body.appendParagraph(`Date: ${item.date}`);
+    body.appendHorizontalRule();
+  });
+
+  body.appendParagraph('\nTOP SUBJECT KEYWORDS:')
+    .setHeading(DocumentApp.ParagraphHeading.HEADING2);
+
+  sortedKeywords.forEach(([word, count]) => {
+    body.appendParagraph(`${word} → ${count} times`);
+  });
+
+  body.appendParagraph('\nNOT FOUND FILES:')
+    .setHeading(DocumentApp.ParagraphHeading.HEADING2);
+
+  results.notFound.forEach(filename => {
+    body.appendParagraph(filename);
+  });
+
+  Logger.log('\n' + '═'.repeat(80));
+  Logger.log('COMPLETE! Results saved to Google Doc:');
+  Logger.log(doc.getUrl());
+  Logger.log('═'.repeat(80));
+
+  return {
+    docUrl: doc.getUrl(),
+    found: results.found.length,
+    notFound: results.notFound.length,
+    keywords: sortedKeywords
+  };
+}
