@@ -21,7 +21,36 @@
  * - Gmail search operator "subject:" is universal across all languages
  * - User sees "Asunto:", "Betreff:", "Objet:" but search uses "subject:"
  *
- * FUNCTIONS:
+ * ═══════════════════════════════════════════════════════════════════════════
+ * SYSTEM COSTS (FOR CLIENT SALES)
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ * FREE COMPONENTS:
+ * ✅ Google Apps Script - FREE (cloud-based, no hosting costs)
+ * ✅ Gmail API - FREE (20,000 emails/day quota)
+ * ✅ Google Drive API - FREE (within existing Drive storage)
+ * ✅ Google Sheets API - FREE (unlimited spreadsheet creation)
+ *
+ * PAID COMPONENT:
+ * 💰 Google Cloud Vision API - OCR/Text extraction from invoices
+ *    - First 1,000 requests/month: FREE
+ *    - After 1,000 requests/month: $1.50 per 1,000 requests
+ *
+ * COST EXAMPLES:
+ * - 100 invoices/month: $0 (under free tier)
+ * - 500 invoices/month: $0 (under free tier)
+ * - 1,000 invoices/month: $0 (exactly at free tier limit)
+ * - 2,000 invoices/month: $1.50 (1,000 free + 1,000 paid)
+ * - 5,000 invoices/month: $6.00 (1,000 free + 4,000 paid)
+ *
+ * TYPICAL MONTHLY COST: $0-3 for most small businesses
+ *
+ * OPTIONAL: Vision API can be disabled for $0 cost (manual data entry required)
+ *
+ * ═══════════════════════════════════════════════════════════════════════════
+ * FUNCTIONS
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
  * - firstRun() - Complete initial setup (run once)
  * - dailyAutomation() - Daily scheduled runs
  * - setupFolders() - Create folder structure
