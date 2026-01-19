@@ -14,7 +14,8 @@
       "Bash(while read file)",
       "Bash(do basename \"$file\")",
       "Bash(done)",
-      "Bash(filtered by subject keywords\" - but forgot that invoice emails often\ncontain icon/logo attachments that need to be filtered out!\n\nv1.5 FIXES THIS:\nKeeps subject-based email filtering + adds proper attachment filtering\n\nFILES UPDATED:\n- INVOICE_AUTOMATION_FINAL.gs \\(main script with fix\\)\n- versions/v1.5_icon_filtering_fix.gs \\(backup\\)\n- V1.5_DEPLOYMENT_GUIDE.md \\(deployment instructions\\)\n\nRECOMMENDATION: Deploy v1.5 immediately if experiencing icon issues\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(filtered by subject keywords\" - but forgot that invoice emails often\ncontain icon/logo attachments that need to be filtered out!\n\nv1.5 FIXES THIS:\nKeeps subject-based email filtering + adds proper attachment filtering\n\nFILES UPDATED:\n- INVOICE_AUTOMATION_FINAL.gs \\(main script with fix\\)\n- versions/v1.5_icon_filtering_fix.gs \\(backup\\)\n- V1.5_DEPLOYMENT_GUIDE.md \\(deployment instructions\\)\n\nRECOMMENDATION: Deploy v1.5 immediately if experiencing icon issues\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(ls:*)"
     ]
   }
 }
