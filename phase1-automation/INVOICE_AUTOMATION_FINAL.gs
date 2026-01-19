@@ -108,35 +108,7 @@ const CONFIG = {
     'hoja de pago',
     'hojas de pago',
 
-    // Ticket service
-    'entradium',
-    'hoja',
-
-    // Vendor codes
-    'dgfcj',
-    'p25con',
-
-    // Company names
-    'tias',
-    'sec',
-
-    // Month names (Spanish)
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre',
-
-    // Additional terms
-    'mod',
-    'santander',
+    // Additional terms (user-specified)
     'justificante de presentación',
     'limitador de sonido caducado',
     'credit note'
