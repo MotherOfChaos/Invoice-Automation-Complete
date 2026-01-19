@@ -8,7 +8,9 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd v1.0 - Complete Invoice Automation System\n\n✅ Production-ready automation system with:\n- Email scanning from 2 Gmail accounts\n- Automatic folder organization \\(year/quarter structure\\)\n- Vision API data extraction \\(dates, amounts, IBANs\\)\n- Spreadsheet creation with quarterly tabs\n- Triple-layer duplicate prevention\n- Daily automation \\(8am & 6pm CET\\)\n- Email notifications for success/errors\n- Fully modular and client-customizable\n\n📦 Files added:\n- phase1-automation/versions/v1.0_complete_automation.gs\n- phase1-automation/INVOICE_AUTOMATION_FINAL.gs\n- documentation/VERSION_HISTORY.md\n- documentation/TRIGGER_SETUP_GUIDE.md\n- Updated README.md with completion status\n\n🎯 Expected results for Teatro Metamorfosis:\n- Finds 147+ invoices from 2025\n- Organizes into 2 years × 4 quarters = 8 folders\n- Creates 2 spreadsheets with complete data extraction\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git config:*)",
       "Bash(git push:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(pkill -f \"git push\")",
+      "Bash(git remote get-url:*)"
     ]
   }
 }
